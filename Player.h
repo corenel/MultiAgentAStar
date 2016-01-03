@@ -19,7 +19,8 @@ public:
     void init(AStar &astar);
     void update(AStar &astar);
     void print(AStar &astar);
-    std::string directive();
+    std::string directiveInWorldAxis();
+    std::string directiveInRobotAxis();
     bool isEnd();
 
 };

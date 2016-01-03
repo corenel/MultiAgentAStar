@@ -23,7 +23,7 @@ int main() {
         agv4.update(astar);
     }
 
-    agv3.print(astar);
+    agv4.print(astar);
 
     // astar.drawMap(astar.search(0, 0, 9, 9));
     return 0;
