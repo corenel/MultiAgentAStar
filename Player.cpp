@@ -55,8 +55,8 @@ void Player::print(AStar &astar) {
         std::cout << (*PathsIterator).x << "\t" << (*PathsIterator).y << std::endl;
     }
     astar.drawMap(TotalPaths);
-    std::cout << "Directive In World Axis: " << directiveInWorldAxis() << std::endl;
-    std::cout << "Directive In Robot Axis: " << directiveInRobotAxis() << std::endl;
+    std::cout << "Directive In World Coordinate System: " << directiveInWCS() << std::endl;
+    std::cout << "Directive In Robot Coordinate System: " << directiveInRCS() << std::endl;
 }
 
 bool Player::isEnd() {
@@ -68,7 +68,7 @@ void Player::init(AStar &astar) {
     PathsIterator = Paths.begin();
 }
 
-std::string Player::directiveInWorldAxis() {
+std::string Player::directiveInWCS() {
     std::string direct = "";
     int PrevX, PrevY;
     std::list<Node>::iterator PathsIterator = TotalPaths.begin();
@@ -93,48 +93,48 @@ std::string Player::directiveInWorldAxis() {
     return direct;
 }
 
-std::string Player::directiveInRobotAxis() {
-    std::string directInWorldAxis = directiveInWorldAxis();
-    std::string direct = "";
+std::string Player::directiveInRCS() {
+    std::string directInWCS = directiveInWCS();
+    std::string directInRCS = "";
 
     int angle = 0;
-    for (int i = 0; i < directInWorldAxis.size(); i++) {
+    for (int i = 0; i < directInWCS.size(); i++) {
         if (angle == 0) {
-            switch (directInWorldAxis[i]) {
-                case 'R': direct += "F"; break;
-                case 'L': direct += "RRF"; angle = 180; break;
-                case 'U': direct += "LF"; angle = 90; break;
-                case 'D': direct += "RF"; angle = 270; break;
+            switch (directInWCS[i]) {
+                case 'R': directInRCS += "F"; break;
+                case 'L': directInRCS += "RRF"; angle = 180; break;
+                case 'U': directInRCS += "LF"; angle = 90; break;
+                case 'D': directInRCS += "RF"; angle = 270; break;
                 default: break;
             }
         }
         else if (angle == 90) {
-            switch (directInWorldAxis[i]) {
-                case 'R': direct += "RF"; angle = 0; break;
-                case 'L': direct += "LF"; angle = 180; break;
-                case 'U': direct += "F"; break;
-                case 'D': direct += "RRF"; angle = 270; break;
+            switch (directInWCS[i]) {
+                case 'R': directInRCS += "RF"; angle = 0; break;
+                case 'L': directInRCS += "LF"; angle = 180; break;
+                case 'U': directInRCS += "F"; break;
+                case 'D': directInRCS += "RRF"; angle = 270; break;
                 default: break;
             }
         }
         else if (angle == 180) {
-            switch (directInWorldAxis[i]) {
-                case 'R': direct += "RRF"; angle = 0; break;
-                case 'L': direct += "F"; break;
-                case 'U': direct += "RF"; angle = 90; break;
-                case 'D': direct += "LF"; angle = 270; break;
+            switch (directInWCS[i]) {
+                case 'R': directInRCS += "RRF"; angle = 0; break;
+                case 'L': directInRCS += "F"; break;
+                case 'U': directInRCS += "RF"; angle = 90; break;
+                case 'D': directInRCS += "LF"; angle = 270; break;
                 default: break;
             }
         }
         else if (angle == 270) {
-            switch (directInWorldAxis[i]) {
-                case 'R': direct += "LF"; angle = 0; break;
-                case 'L': direct += "RF"; angle = 180; break;
-                case 'U': direct += "RRF"; angle = 90; break;
-                case 'D': direct += "F"; break;
+            switch (directInWCS[i]) {
+                case 'R': directInRCS += "LF"; angle = 0; break;
+                case 'L': directInRCS += "RF"; angle = 180; break;
+                case 'U': directInRCS += "RRF"; angle = 90; break;
+                case 'D': directInRCS += "F"; break;
                 default: break;
             }
         }
     }
-    return direct;
+    return directInRCS;
 }
