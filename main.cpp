@@ -5,26 +5,34 @@ using namespace std;
 
 int main() {
     AStar astar;
-    Player agv1(0, 3, 8, 8), agv2(2, 5, 8, 5), agv3(0, 0, 2, 9), agv4(8, 8, 2, 2);
-    agv1.init(astar);
-    agv2.init(astar);
-    agv3.init(astar);
+    Player AGV[3] = { Player(1, 4, 2, 1) , Player(2, 0, 3, 4), Player(2, 2, 2, 2)};
 
-    for (int i = 1; i < 9; i+=2){
-        for (int j = 1; j < 9; j++) {
-            astar.setMapData(i, j, false);
+    // Set obstacles
+//    for (int i = 2; i < 8; i+=3){
+//        for (int j = 2; j < 8; j++) {
+//            astar.setMapData(i, j, false);
+//        }
+//    }
+    astar.setMapData(1, 1, false);
+    astar.setMapData(2, 2, false);
+    astar.setMapData(4, 2, false);
+    astar.setMapData(2, 3, false);
+
+    // Initialize paths
+    for (int i = 0; i < 3; i++) {
+        AGV[i].init(astar);
+    }
+
+    // Plan paths with collision avoidance
+    while (!(AGV[0].isEnd() && AGV[1].isEnd() && AGV[2].isEnd())){
+        for (int i = 0; i < 3; i++) {
+            AGV[i].update(astar);
         }
     }
 
-    while (!(agv1.isEnd() && agv2.isEnd() && agv3.isEnd() && agv4.isEnd())){
-        agv1.update(astar);
-        agv2.update(astar);
-        agv3.update(astar);
-        agv4.update(astar);
+    // Print paths
+    for (int i = 0; i < 3; i++) {
+        AGV[i].print(astar);
     }
-
-    agv4.print(astar);
-
-    // astar.drawMap(astar.search(0, 0, 9, 9));
     return 0;
 }

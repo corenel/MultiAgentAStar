@@ -25,8 +25,8 @@ public:
     Node *sStartNode;
     Node *sEndNode;
     Node *pcurrNode;
-    static const int MapHeight = 10;
-    static const int MapWeight = 10;
+    static const int MapHeight = 6;
+    static const int MapWeight = 6;
     bool MapData[MapHeight][MapWeight];
 
     AStar(void);

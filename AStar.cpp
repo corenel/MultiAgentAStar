@@ -32,9 +32,9 @@ std::list<Node> AStar::search(int _x, int _y, int _TargetX, int _TargetY)
     setStartNode(_x, _y);
     setEndNode(_TargetX, _TargetY);
 
-    Node *currentNode;//当前节点
+    Node *currentNode;
     currentNode = sStartNode;
-    currentNode->parent = NULL;//初始节点的父节点为空
+    currentNode->parent = NULL;
     currentNode->g = 0;
     computeH(currentNode);
     computeF(currentNode);
@@ -44,20 +44,19 @@ std::list<Node> AStar::search(int _x, int _y, int _TargetX, int _TargetY)
 
     pcurrNode = NULL;
 
-    OpenList.push_front(sStartNode);//添加起始点到开放列表
+    OpenList.push_front(sStartNode);
     do
     {
-        currentNode = findBestNode();//从开放列表得到最优节点
-        //遍历当前结点周围的结点并加入开放列表，当前节点从开放列表中移到封闭列表中
+        currentNode = findBestNode();
         addNearbyNode(currentNode);
 
-        ClosedList.push_front(currentNode);//添加到关闭列表中
-        if (OpenList.size() < 1 || pcurrNode) break; //如果目标节点已经存在于开放列表或开放列表是空则退出
+        ClosedList.push_front(currentNode);
+        if (OpenList.size() < 1 || pcurrNode) break;
     } while (true);
 
     sEndNode->parent = currentNode;
     currentNode = sEndNode;
-    std::list<Node> path; //用于存放寻路后的数据
+    std::list<Node> path;
 
     do
     {
@@ -185,11 +184,9 @@ bool AStar::isValid(int _x, int _y) {
 }
 
 void AStar::drawMap(std::list<Node> path) {
-
-    //输出模拟的地图和寻路后的路径
-    for(int j=0;j<10;++j)
+    for(int j=0;j<MapWeight;++j)
     {
-        for (int i=0;i<10;++i)
+        for (int i=0;i<MapHeight;++i)
         {
             if(isPath(&path, i, j))
                 std::cout<<"〇"<<"\t";

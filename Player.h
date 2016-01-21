@@ -13,7 +13,7 @@ public:
     std::list<Node> Paths;
     std::list<Node>::iterator PathsIterator;
     std::list<Node> TotalPaths;
-    bool Flag;
+    bool Flag; // End flag
 
     Player(int _x, int _y, int _TargetX, int _TargetY);
     void init(AStar &astar);
